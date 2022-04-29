@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.techedgegroup.accademy.course.datamodel.Course;
+import com.techedgegroup.accademy.course.datamodel.CourseSummary;
 import com.techedgegroup.accademy.course.datamodel.Teacher;
 import com.techedgegroup.accademy.course.repository.CourseRepository;
 import com.techedgegroup.accademy.course.repository.TeacherRepository;
@@ -28,8 +29,18 @@ public class CourseService {
     }
 
     @Transactional(readOnly = true)
+    public List<Course> getCoursesByCategory(String courseCategory) {
+        return courseRepository.findByCourseCategory(courseCategory);
+    }
+
+    @Transactional(readOnly = true)
     public List<String> getAllCourseCategories() {
         return courseRepository.findAllCategories();
+    }
+
+    @Transactional(readOnly = true)
+    public List<CourseSummary> getCourseSummary() {
+        return courseRepository.getCourseSummary();
     }
 
     @Transactional
@@ -85,10 +96,10 @@ public class CourseService {
             throw new Exception("Course not found");
         }
 
-        Course course=courseQuery.get();
-        course.getStudents().stream().forEach(student ->  { //
-             course.getStudents().remove(student); 
-             student.getCourses().remove(course);
+        Course course = courseQuery.get();
+        course.getStudents().stream().forEach(student -> { //
+            course.getStudents().remove(student);
+            student.getCourses().remove(course);
         });
 
         // courseRepository.deleteCourseStudents(id);

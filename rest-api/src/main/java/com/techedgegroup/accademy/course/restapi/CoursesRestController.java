@@ -3,9 +3,12 @@ package com.techedgegroup.accademy.course.restapi;
 import java.util.List;
 
 import javax.validation.Valid;
+import javax.websocket.server.PathParam;
 
 import com.techedgegroup.accademy.course.datamodel.Course;
+import com.techedgegroup.accademy.course.datamodel.CourseSummary;
 import com.techedgegroup.accademy.course.mapper.CourseMapper;
+import com.techedgegroup.accademy.course.restapi.model.CourseDataResult;
 import com.techedgegroup.accademy.course.restapi.model.CourseInDTO;
 import com.techedgegroup.accademy.course.restapi.model.CourseOutDTO;
 import com.techedgegroup.accademy.course.service.CourseService;
@@ -50,6 +53,16 @@ public class CoursesRestController {
 		return coursesService.getAllCourseCategories();
 	}
 
+	@Operation(summary = "Get courses by category", description = "Get courses by category")
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Successful operation", content = {
+			@Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = CourseOutDTO.class))) }) })
+	@GetMapping(value = "/courseByCategory")
+	public List<CourseOutDTO> getCoursesByCategory(@PathParam("category") String courseCategory) {
+		List<Course> courses = coursesService.getCoursesByCategory(courseCategory);
+
+		return courseMapper.serviceToRest(courses);
+	}
+
 	@Operation(summary = "Get all courses", description = "Get all courses")
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Successful operation", content = {
 			@Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = CourseOutDTO.class))) }) })
@@ -58,6 +71,16 @@ public class CoursesRestController {
 		List<Course> courses = coursesService.getAllCourses();
 
 		return courseMapper.serviceToRest(courses);
+	}
+
+	@Operation(summary = "Get courses summary", description = "Get all courses with counters")
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Successful operation", content = {
+			@Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = CourseDataResult.class))) }) })
+	@GetMapping(value = "/courseSummary")
+	public List<CourseDataResult> getAllCourseSummary() {
+		List<CourseSummary> courses = coursesService.getCourseSummary();
+
+		return courseMapper.summaryServicetoRest(courses);
 	}
 
 	@Operation(summary = "Add a new course", description = "Add a new course")

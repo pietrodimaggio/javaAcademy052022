@@ -13,7 +13,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -42,5 +41,5 @@ public class Course {
     private Teacher teacher;
 
     @ManyToMany(mappedBy = "courses", fetch = FetchType.LAZY)
-    private Set<Student> students= new HashSet<Student>();
+    private Set<Student> students = new HashSet<Student>();
 }

@@ -3,8 +3,10 @@ package com.techedgegroup.accademy.course.mapper;
 import java.util.List;
 
 import com.techedgegroup.accademy.course.datamodel.Course;
+import com.techedgegroup.accademy.course.datamodel.CourseSummary;
 import com.techedgegroup.accademy.course.datamodel.Student;
 import com.techedgegroup.accademy.course.datamodel.Teacher;
+import com.techedgegroup.accademy.course.restapi.model.CourseDataResult;
 import com.techedgegroup.accademy.course.restapi.model.CourseOutDTO;
 import com.techedgegroup.accademy.course.restapi.model.StudentOutDTO;
 import com.techedgegroup.accademy.course.restapi.model.TeacherOutDTO;
@@ -34,4 +36,9 @@ public interface CourseMapper {
     com.techedgegroup.accademy.course.restapi.model.StudentOutDTO.CourseSummary studentConvertoToRest(Course course);
 
     List<StudentOutDTO> studentServiceToRest(List<Student> student);
+
+    CourseDataResult servicetoRest(CourseSummary courseSummary);
+
+    List<CourseDataResult> summaryServicetoRest(List<CourseSummary> courseSummary);
+
 }

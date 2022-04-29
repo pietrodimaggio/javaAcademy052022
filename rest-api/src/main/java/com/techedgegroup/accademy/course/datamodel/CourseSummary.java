@@ -1,12 +1,14 @@
-package com.techedgegroup.accademy.course.restapi.model;
+package com.techedgegroup.accademy.course.datamodel;
 
 import java.util.Date;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-public class CourseDataResult {
-    private Integer id;
+@AllArgsConstructor
+public class CourseSummary {
+    private int id;
     private String courseName;
     private String courseCategory;
     private Date courseDate;
