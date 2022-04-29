@@ -3,13 +3,12 @@ package com.techedgegroup.accademy.course.restapi;
 import java.util.List;
 
 import javax.validation.Valid;
-import javax.websocket.server.PathParam;
 
 import com.techedgegroup.accademy.course.datamodel.Course;
 import com.techedgegroup.accademy.course.mapper.CourseMapper;
 import com.techedgegroup.accademy.course.restapi.model.CourseInDTO;
 import com.techedgegroup.accademy.course.restapi.model.CourseOutDTO;
-import com.techedgegroup.accademy.course.service.CoursesService;
+import com.techedgegroup.accademy.course.service.CourseService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,7 +37,7 @@ public class CoursesRestController {
 	Logger logger = LoggerFactory.getLogger(CoursesRestController.class);
 
 	@Autowired
-	private CoursesService coursesService;
+	private CourseService coursesService;
 
 	@Autowired
 	private CourseMapper courseMapper;

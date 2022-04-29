@@ -3,7 +3,6 @@ package com.techedgegroup.accademy.course.restapi;
 import java.util.List;
 
 import javax.validation.Valid;
-import javax.websocket.server.PathParam;
 
 import com.techedgegroup.accademy.course.datamodel.Teacher;
 import com.techedgegroup.accademy.course.mapper.CourseMapper;
@@ -11,6 +10,8 @@ import com.techedgegroup.accademy.course.restapi.model.TeacherInDTO;
 import com.techedgegroup.accademy.course.restapi.model.TeacherOutDTO;
 import com.techedgegroup.accademy.course.service.TeacherService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,8 +32,10 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
-@Tag(name = "Courses API")
+@Tag(name = "Teacher API")
 public class TeachersRestController {
+	Logger logger = LoggerFactory.getLogger(TeachersRestController.class);
+	
 	@Autowired
 	private TeacherService teacherService;
 
@@ -96,6 +99,7 @@ public class TeachersRestController {
 
 			return "OK";
 		} catch (Exception e) {
+			logger.error("Errore",e);
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
 		}
 	}

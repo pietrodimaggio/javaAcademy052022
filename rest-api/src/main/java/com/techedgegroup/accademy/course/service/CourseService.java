@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class CoursesService {
+public class CourseService {
 
     @Autowired
     private CourseRepository courseRepository;
@@ -92,7 +92,7 @@ public class CoursesService {
         });
 
         // courseRepository.deleteCourseStudents(id);
-        
+
         courseRepository.deleteById(id);
     }
 

@@ -17,7 +17,7 @@ public class TeacherService {
     private TeacherRepository teacherRepository;
 
     public List<Teacher> getAllTeachers() {
-        return teacherRepository.findAll();
+        return teacherRepository.findAllTeachers();
     }
 
     @Transactional
@@ -44,6 +44,8 @@ public class TeacherService {
         teacher.setTeacherName(teacherName);
         teacher.setTeacherSurname(teacherSurname);
         teacher.setTeacherEmail(teacherEmail);
+
+        teacher.getCourses();
 
         return teacher;
     }

@@ -6,9 +6,7 @@ import com.techedgegroup.accademy.course.datamodel.Course;
 
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 public interface CourseRepository extends JpaRepository<Course, Integer> {
 
@@ -20,7 +18,8 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
     List<String> findAllCategories();
 
     // @Modifying(flushAutomatically = true)
-    // @Query(nativeQuery = true, value = "DELETE FROM COURSE_STUDENT WHERE COURSE_ID =:id")
+    // @Query(nativeQuery = true, value = "DELETE FROM COURSE_STUDENT WHERE
+    // COURSE_ID =:id")
     // long deleteCourseStudents(@Param("id") Integer courseId);
 
 }

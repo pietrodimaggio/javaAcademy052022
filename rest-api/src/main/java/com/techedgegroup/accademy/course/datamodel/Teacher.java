@@ -12,16 +12,20 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "TEACHERS")
-@Data
+@Getter
+@Setter
+@ToString
 public class Teacher {
     @Id
-	@Column(unique = true, nullable = false)
-	@GeneratedValue
-	private Integer id;
+    @Column(unique = true, nullable = false)
+    @GeneratedValue
+    private Integer id;
 
     @Column(name = "NAME")
     private String teacherName;
