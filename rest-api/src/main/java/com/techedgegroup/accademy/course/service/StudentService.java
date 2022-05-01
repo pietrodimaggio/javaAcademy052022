@@ -54,7 +54,7 @@ public class StudentService {
         student.setStudentSurname(studentSurname);
         student.setStudentEmail(email);
 
-        student.getCourses();
+        student.getCourses().size();
 
         return student;
     }

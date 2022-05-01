@@ -45,7 +45,7 @@ public class TeacherService {
         teacher.setTeacherSurname(teacherSurname);
         teacher.setTeacherEmail(teacherEmail);
 
-        teacher.getCourses();
+        teacher.getCourses().size();
 
         return teacher;
     }
