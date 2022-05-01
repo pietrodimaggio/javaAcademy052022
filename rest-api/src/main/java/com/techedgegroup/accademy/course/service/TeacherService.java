@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
+import com.techedgegroup.accademy.course.datamodel.Student;
 import com.techedgegroup.accademy.course.datamodel.Teacher;
 import com.techedgegroup.accademy.course.repository.TeacherRepository;
 
@@ -67,5 +68,19 @@ public class TeacherService {
         });
 
         teacherRepository.deleteById(id);
+    }
+    
+    @Transactional
+    public Teacher getTeacher(Integer id) throws Exception {
+
+        Optional<Teacher> teacherQuery = teacherRepository.findById(id);
+        if (!teacherQuery.isPresent()) {
+            throw new Exception("Teacher not found");
+        }
+
+        Teacher teacher = teacherQuery.get(); 
+        teacher.getCourses().size();
+
+        return teacher;
     }
 }

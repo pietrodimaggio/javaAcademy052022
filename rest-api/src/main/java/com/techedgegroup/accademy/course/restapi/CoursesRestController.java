@@ -7,10 +7,12 @@ import javax.websocket.server.PathParam;
 
 import com.techedgegroup.accademy.course.datamodel.Course;
 import com.techedgegroup.accademy.course.datamodel.CourseSummary;
+import com.techedgegroup.accademy.course.datamodel.Student;
 import com.techedgegroup.accademy.course.mapper.CourseMapper;
 import com.techedgegroup.accademy.course.restapi.model.CourseDataResult;
 import com.techedgegroup.accademy.course.restapi.model.CourseInDTO;
 import com.techedgegroup.accademy.course.restapi.model.CourseOutDTO;
+import com.techedgegroup.accademy.course.restapi.model.StudentOutDTO;
 import com.techedgegroup.accademy.course.service.CourseService;
 
 import org.slf4j.Logger;
@@ -91,6 +93,7 @@ public class CoursesRestController {
 	public CourseOutDTO createCourse(@Valid @RequestBody CourseInDTO entity) {
 
 		try {
+			logger.info("");
 			Course newCourse = coursesService.createNewCourse(//
 					entity.getTeacherId(), //
 					entity.getCourseName(), //
@@ -103,6 +106,21 @@ public class CoursesRestController {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
 		}
 
+	}
+	
+	@Operation(summary = "Get a course", description = "Get a course")
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Successful operation", content = {
+			@Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = StudentOutDTO.class))) }) })
+	@GetMapping(value = "/course/{id}")
+	public CourseOutDTO getCourse(@PathVariable("id") Integer id) {
+		try {
+			Course course = coursesService.getCourse(id);
+
+			return courseMapper.serviceToRest(course);
+		
+		} catch (Exception e) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+		}
 	}
 
 	@Operation(summary = "Update a course", description = "Update a course")

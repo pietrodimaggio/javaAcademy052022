@@ -60,6 +60,19 @@ public class StudentService {
     }
 
     @Transactional
+    public Student getStudent(Integer id) throws Exception {
+
+        Optional<Student> studentQuery = studentRepository.findById(id);
+        if (!studentQuery.isPresent()) {
+            throw new Exception("Student not found");
+        }
+
+        Student student = studentQuery.get(); 
+        student.getCourses().size();
+
+        return student;
+    }
+    @Transactional
     public void deleteStudent(Integer id) throws Exception {
         Optional<Student> studentQuery = studentRepository.findById(id);
         if (!studentQuery.isPresent()) {

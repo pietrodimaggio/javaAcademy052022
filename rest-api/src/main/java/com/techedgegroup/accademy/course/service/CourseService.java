@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import com.techedgegroup.accademy.course.datamodel.Course;
 import com.techedgegroup.accademy.course.datamodel.CourseSummary;
+import com.techedgegroup.accademy.course.datamodel.Student;
 import com.techedgegroup.accademy.course.datamodel.Teacher;
 import com.techedgegroup.accademy.course.repository.CourseRepository;
 import com.techedgegroup.accademy.course.repository.TeacherRepository;
@@ -105,6 +106,21 @@ public class CourseService {
         // courseRepository.deleteCourseStudents(id);
 
         courseRepository.deleteById(id);
+    }
+    
+    @Transactional
+    public Course getCourse(Integer id) throws Exception {
+
+        Optional<Course> courseQuery = courseRepository.findById(id);
+        if (!courseQuery.isPresent()) {
+            throw new Exception("Course not found");
+        }
+
+        Course course = courseQuery.get(); 
+        course.getStudents().size();
+        course.getTeacher().getId();
+        course.getTeacher().getCourses().size();
+        return course;
     }
 
 }

@@ -48,6 +48,21 @@ public class StudentsRestController {
 
 		return courseMapper.studentServiceToRest(students);
 	}
+	
+	@Operation(summary = "Get a student", description = "Get all students")
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Successful operation", content = {
+			@Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = StudentOutDTO.class))) }) })
+	@GetMapping(value = "/student/{id}")
+	public StudentOutDTO getStudent(@PathVariable("id") Integer id) {
+		try {
+			Student student = studentService.getStudent(id);
+
+			return courseMapper.serviceToRest(student);
+		
+		} catch (Exception e) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+		}
+	}
 
 	@Operation(summary = "Add a new student", description = "Add a new student")
 	@ApiResponses(value = {

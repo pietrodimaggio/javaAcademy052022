@@ -4,8 +4,10 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.techedgegroup.accademy.course.datamodel.Student;
 import com.techedgegroup.accademy.course.datamodel.Teacher;
 import com.techedgegroup.accademy.course.mapper.CourseMapper;
+import com.techedgegroup.accademy.course.restapi.model.StudentOutDTO;
 import com.techedgegroup.accademy.course.restapi.model.TeacherInDTO;
 import com.techedgegroup.accademy.course.restapi.model.TeacherOutDTO;
 import com.techedgegroup.accademy.course.service.TeacherService;
@@ -100,6 +102,21 @@ public class TeachersRestController {
 			return "OK";
 		} catch (Exception e) {
 			logger.error("Errore",e);
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+		}
+	}
+	
+	@Operation(summary = "Get a teacher", description = "Get a teacher")
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Successful operation", content = {
+			@Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = StudentOutDTO.class))) }) })
+	@GetMapping(value = "/teacher/{id}")
+	public TeacherOutDTO getStudent(@PathVariable("id") Integer id) {
+		try {
+			Teacher student = teacherService.getTeacher(id);
+
+			return courseMapper.serviceToRest(student);
+		
+		} catch (Exception e) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
 		}
 	}
