@@ -1,13 +1,12 @@
 package com.techedgegroup.accademy.course.restapi;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
-import javax.websocket.server.PathParam;
 
 import com.techedgegroup.accademy.course.datamodel.Course;
 import com.techedgegroup.accademy.course.datamodel.CourseSummary;
-import com.techedgegroup.accademy.course.datamodel.Student;
 import com.techedgegroup.accademy.course.mapper.CourseMapper;
 import com.techedgegroup.accademy.course.restapi.model.CourseDataResult;
 import com.techedgegroup.accademy.course.restapi.model.CourseInDTO;
@@ -108,7 +107,40 @@ public class CoursesRestController {
 		}
 
 	}
-	
+
+	@Operation(summary = "Add a new course", description = "Add a new course")
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Successful operation", content = {
+			@Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = CourseOutDTO.class))) }),
+			@ApiResponse(responseCode = "404", description = "Teacher not found") })
+	@PostMapping(value = "/courses")
+	public List<CourseOutDTO> createManyCourse(@Valid @RequestBody List<CourseInDTO> entities) {
+
+		try {
+			logger.info("");
+
+			List<CourseOutDTO> result = new ArrayList<CourseOutDTO>();
+
+			entities.stream().forEach(entity -> {
+				try {
+					Course newCourse = coursesService.createNewCourse(//
+							entity.getTeacherId(), //
+							entity.getCourseName(), //
+							entity.getCourseCategory(), //
+							entity.getCourseDate() //
+					);
+
+					result.add(courseMapper.serviceToRest(newCourse));
+				} catch (Exception e) {
+				}
+			});
+
+			return result;
+		} catch (Exception e) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+		}
+
+	}
+
 	@Operation(summary = "Get a course", description = "Get a course")
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Successful operation", content = {
 			@Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = StudentOutDTO.class))) }) })
@@ -118,7 +150,7 @@ public class CoursesRestController {
 			Course course = coursesService.getCourse(id);
 
 			return courseMapper.serviceToRest(course);
-		
+
 		} catch (Exception e) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
 		}
