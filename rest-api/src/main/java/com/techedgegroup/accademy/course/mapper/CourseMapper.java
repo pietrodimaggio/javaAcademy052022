@@ -7,8 +7,10 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
 import com.techedgegroup.accademy.course.datamodel.Course;
+import com.techedgegroup.accademy.course.datamodel.Student;
 import com.techedgegroup.accademy.course.datamodel.Teacher;
 import com.techedgegroup.accademy.course.restapi.model.CourseOutDTO;
+import com.techedgegroup.accademy.course.restapi.model.StudentOutDTO;
 import com.techedgegroup.accademy.course.restapi.model.TeacherOutDTO;
 
 @Mapper(componentModel = "spring")
@@ -24,5 +26,11 @@ public interface CourseMapper {
 	com.techedgegroup.accademy.course.restapi.model.TeacherOutDTO.CourseSummary techerConvertoToRest(Course course);
 
 	List<TeacherOutDTO> teacherServiceToRest(List<Teacher> teacher);
+
+	StudentOutDTO serviceToRest(Student student);
+
+	com.techedgegroup.accademy.course.restapi.model.StudentOutDTO.CourseSummary studentConvertoToRest(Course course);
+
+	List<StudentOutDTO> studentServiceToRest(List<Student> student);
 
 }
