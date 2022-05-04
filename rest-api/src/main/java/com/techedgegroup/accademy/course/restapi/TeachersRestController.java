@@ -108,9 +108,9 @@ public class TeachersRestController {
 	
 	@Operation(summary = "Get a teacher", description = "Get a teacher")
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Successful operation", content = {
-			@Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = StudentOutDTO.class))) }) })
+			@Content(mediaType = "application/json", schema = @Schema(implementation = StudentOutDTO.class)) }) })
 	@GetMapping(value = "/teacher/{id}")
-	public TeacherOutDTO getStudent(@PathVariable("id") Integer id) {
+	public TeacherOutDTO getTeacher(@PathVariable("id") Integer id) {
 		try {
 			Teacher student = teacherService.getTeacher(id);
 

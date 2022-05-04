@@ -108,42 +108,9 @@ public class CoursesRestController {
 
 	}
 
-	@Operation(summary = "Add a new course", description = "Add a new course")
-	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Successful operation", content = {
-			@Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = CourseOutDTO.class))) }),
-			@ApiResponse(responseCode = "404", description = "Teacher not found") })
-	@PostMapping(value = "/courses")
-	public List<CourseOutDTO> createManyCourse(@Valid @RequestBody List<CourseInDTO> entities) {
-
-		try {
-			logger.info("");
-
-			List<CourseOutDTO> result = new ArrayList<CourseOutDTO>();
-
-			entities.stream().forEach(entity -> {
-				try {
-					Course newCourse = coursesService.createNewCourse(//
-							entity.getTeacherId(), //
-							entity.getCourseName(), //
-							entity.getCourseCategory(), //
-							entity.getCourseDate() //
-					);
-
-					result.add(courseMapper.serviceToRest(newCourse));
-				} catch (Exception e) {
-				}
-			});
-
-			return result;
-		} catch (Exception e) {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-		}
-
-	}
-
 	@Operation(summary = "Get a course", description = "Get a course")
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Successful operation", content = {
-			@Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = StudentOutDTO.class))) }) })
+			@Content(mediaType = "application/json", schema = @Schema(implementation = CourseOutDTO.class))) }) 
 	@GetMapping(value = "/course/{id}")
 	public CourseOutDTO getCourse(@PathVariable("id") Integer id) {
 		try {
