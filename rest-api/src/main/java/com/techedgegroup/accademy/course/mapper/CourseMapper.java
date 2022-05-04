@@ -7,16 +7,20 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
 import com.techedgegroup.accademy.course.datamodel.Course;
+import com.techedgegroup.accademy.course.datamodel.CourseSummary;
 import com.techedgegroup.accademy.course.datamodel.Student;
 import com.techedgegroup.accademy.course.datamodel.Teacher;
+import com.techedgegroup.accademy.course.restapi.model.CourseDataResult;
 import com.techedgegroup.accademy.course.restapi.model.CourseOutDTO;
 import com.techedgegroup.accademy.course.restapi.model.StudentOutDTO;
 import com.techedgegroup.accademy.course.restapi.model.TeacherOutDTO;
 
 @Mapper(componentModel = "spring")
 public interface CourseMapper {
-	@Mappings({ @Mapping(target = "teacherId", source = "teacher.id"),
-			@Mapping(target = "teacherEmail", source = "teacher.teacherEmail"), })
+	@Mappings({ //
+			@Mapping(target = "teacherId", source = "teacher.id"), //
+			@Mapping(target = "teacherEmail", source = "teacher.teacherEmail") //
+	})
 	CourseOutDTO serviceToRest(Course course);
 
 	List<CourseOutDTO> serviceToRest(List<Course> course);
@@ -32,5 +36,9 @@ public interface CourseMapper {
 	com.techedgegroup.accademy.course.restapi.model.StudentOutDTO.CourseSummary studentConvertoToRest(Course course);
 
 	List<StudentOutDTO> studentServiceToRest(List<Student> student);
+
+	CourseDataResult servicetoRest(CourseSummary courseSummary);
+
+	List<CourseDataResult> summaryServicetoRest(List<CourseSummary> courseSummary);
 
 }
