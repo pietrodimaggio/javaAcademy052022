@@ -18,5 +18,6 @@
 	<modules>
 		<module>commons</module>
 		<module>excel-reader</module>
+		<module>rabbit-importer</module>
 	</modules>
 </project>
