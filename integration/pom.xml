@@ -16,6 +16,7 @@
 	<packaging>pom</packaging>
 
 	<modules>
+		<module>commons</module>
 		<module>excel-reader</module>
 	</modules>
 </project>
