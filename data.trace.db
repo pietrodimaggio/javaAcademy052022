@@ -1,3 +1,0 @@
-2022-04-29 20:56:34 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "COURSE_STUDENT" not found; SQL statement:
-select course0_.id as col_0_0_, course0_.name as col_1_0_, course0_.category as col_2_0_, course0_.course_date as col_3_0_, teacher1_.surname as col_4_0_, (select count(students2_.course_id) from course_student students2_ where course0_.id = students2_.course_id) as col_5_0_ from courses course0_ cross join teachers teacher1_ where course0_.teacher_id=teacher1_.id [42102-200]

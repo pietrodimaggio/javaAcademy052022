@@ -2,23 +2,45 @@ package com.techedgegroup.accademy.course.restapi.model;
 
 import java.util.Date;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-
-import lombok.Data;
-
-@Data
 public class CourseInDTO {
-	@NotNull
-    private Integer teacherId;
+	 private Integer teacherId;
 
-	@NotBlank(message = "Name is mandatory")
-    private String courseName;
+	    private String courseName;
 
-	@NotBlank(message = "Category is mandatory")
-    private String courseCategory;
+	    private String courseCategory;
 
-	@NotNull(message = "Date is mandatory")
-    private Date courseDate;
+	    private Date courseDate;
 
+		public Integer getTeacherId() {
+			return teacherId;
+		}
+
+		public void setTeacherId(Integer teacherId) {
+			this.teacherId = teacherId;
+		}
+
+		public String getCourseName() {
+			return courseName;
+		}
+
+		public void setCourseName(String courseName) {
+			this.courseName = courseName;
+		}
+
+		public String getCourseCategory() {
+			return courseCategory;
+		}
+
+		public void setCourseCategory(String courseCategory) {
+			this.courseCategory = courseCategory;
+		}
+
+		public Date getCourseDate() {
+			return courseDate;
+		}
+
+		public void setCourseDate(Date courseDate) {
+			this.courseDate = courseDate;
+		}
+	    	    
 }
