@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.techedgegroup.accademy.course.datamodel.Course;
+import com.techedgegroup.accademy.course.datamodel.CourseSummary;
 import com.techedgegroup.accademy.course.mapper.CourseMapper;
 import com.techedgegroup.accademy.course.restapi.model.CourseDataResult;
 import com.techedgegroup.accademy.course.restapi.model.CourseInDTO;
@@ -64,7 +65,9 @@ public class CoursesRestController {
 	@Operation(summary = "Get courses summary", description = "Get all courses with counters")
 	@GetMapping(value = "/courseSummary")
 	public List<CourseDataResult> getAllCourseSummary() {
-		throw new ResponseStatusException(HttpStatus.NOT_IMPLEMENTED);
+		List<CourseSummary> courses = coursesService.getCourseSummary();
+
+		return courseMapper.summaryServicetoRest(courses);
 	}
 
 	@Operation(summary = "Add a new course", description = "Add a new course")
