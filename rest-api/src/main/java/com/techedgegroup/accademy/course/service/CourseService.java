@@ -90,6 +90,12 @@ public class CourseService {
 			throw new Exception("Course not found");
 		}
 
+        Course course = courseQuery.get();
+        course.getStudents().stream().forEach(student -> { //
+            course.getStudents().remove(student);
+            student.getCourses().remove(course);
+        });
+
 		courseRepository.deleteById(id);
 	}
 
