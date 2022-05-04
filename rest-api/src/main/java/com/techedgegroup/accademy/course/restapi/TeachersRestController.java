@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.techedgegroup.accademy.course.datamodel.Teacher;
+import com.techedgegroup.accademy.course.mapper.CourseMapper;
 import com.techedgegroup.accademy.course.restapi.model.TeacherInDTO;
 import com.techedgegroup.accademy.course.restapi.model.TeacherOutDTO;
 import com.techedgegroup.accademy.course.service.TeacherService;
@@ -33,20 +34,15 @@ public class TeachersRestController {
 	@Autowired
 	private TeacherService teacherService;
 
+	@Autowired
+	private CourseMapper courseMapper;
+
 	@Operation(summary = "Get all teachers", description = "Get all teachers")
 	@GetMapping(value = "/teacher")
 	public List<TeacherOutDTO> getAllTeachers() {
 		List<Teacher> teachers = teacherService.getAllTeachers();
 
-		return teachers.stream().map(teacher -> {
-			TeacherOutDTO out = new TeacherOutDTO();
-			out.setId(teacher.getId());
-			out.setTeacherName(teacher.getTeacherName());
-			out.setTeacherSurname(teacher.getTeacherSurname());
-			out.setTeacherEmail(teacher.getTeacherEmail());
-
-			return out;
-		}).toList();
+		return courseMapper.teacherServiceToRest(teachers);
 	}
 
 	@Operation(summary = "Add a new teacher", description = "Add a new teacher")
@@ -56,14 +52,7 @@ public class TeachersRestController {
 		Teacher newTeacher = teacherService.createTeacher(entity.getTeacherName(), entity.getTeacherSurname(),
 				entity.getTeacherEmail());
 
-		TeacherOutDTO response = new TeacherOutDTO();
-
-		response.setId(newTeacher.getId());
-		response.setTeacherName(newTeacher.getTeacherName());
-		response.setTeacherSurname(newTeacher.getTeacherSurname());
-		response.setTeacherEmail(newTeacher.getTeacherEmail());
-
-		return response;
+		return courseMapper.serviceToRest(newTeacher);
 	}
 
 	@Operation(summary = "Update a teacher", description = "Update a teacher")
