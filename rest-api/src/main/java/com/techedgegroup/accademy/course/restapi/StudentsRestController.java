@@ -40,8 +40,6 @@ public class StudentsRestController {
 	private CourseMapper courseMapper;
 
 	@Operation(summary = "Get all students", description = "Get all students")
-	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Successful operation", content = {
-			@Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = StudentOutDTO.class))) }) })
 	@GetMapping(value = "/student")
 	public List<StudentOutDTO> getAllStudents() {
 		List<Student> students = studentService.getAllStudents();
@@ -50,8 +48,6 @@ public class StudentsRestController {
 	}
 	
 	@Operation(summary = "Get a student", description = "Get all students")
-	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Successful operation", content = {
-			@Content(mediaType = "application/json", schema = @Schema(implementation = StudentOutDTO.class)) }) })
 	@GetMapping(value = "/student/{id}")
 	public StudentOutDTO getStudent(@PathVariable("id") Integer id) {
 		try {
@@ -65,10 +61,6 @@ public class StudentsRestController {
 	}
 
 	@Operation(summary = "Add a new student", description = "Add a new student")
-	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "Successful operation", content = {
-					@Content(mediaType = "application/json", schema = @Schema(implementation = StudentOutDTO.class)) }),
-			@ApiResponse(responseCode = "405", description = "Invalid input") })
 	@PostMapping(value = "/student")
 	public StudentOutDTO createStudent(@Valid @RequestBody StudentInDTO entity) {
 
@@ -79,10 +71,6 @@ public class StudentsRestController {
 	}
 
 	@Operation(summary = "Update a student", description = "Update a student")
-	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "Successful operation", content = {
-					@Content(mediaType = "application/json", schema = @Schema(implementation = StudentOutDTO.class)) }),
-			@ApiResponse(responseCode = "405", description = "Invalid input") })
 	@PutMapping(value = "/student/{id}")
 	public StudentOutDTO updateTeacher(@PathVariable("id") Integer id, @Valid @RequestBody StudentInDTO entity) {
 		try {
@@ -100,10 +88,6 @@ public class StudentsRestController {
 	}
 
 	@Operation(summary = "Delete a student", description = "Delete a student")
-	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "Successful operation", content = {
-					@Content(mediaType = "application/json", schema = @Schema(implementation = String.class)) }),
-			@ApiResponse(responseCode = "405", description = "Invalid input") })
 	@DeleteMapping(value = "/student/{id}")
 	public String deleteStudent(@PathVariable("id") Integer id) {
 		try {
@@ -116,10 +100,6 @@ public class StudentsRestController {
 	}
 
 	@Operation(summary = "Enrollment in a course", description = "Enroll a student on a course")
-	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "Successful operation", content = {
-					@Content(mediaType = "application/json", schema = @Schema(implementation = StudentOutDTO.class)) }),
-			@ApiResponse(responseCode = "405", description = "Invalid input") })
 	@PostMapping(value = "/student/{id}/enroll")
 	public StudentOutDTO enrollStudent(@PathVariable("id") Integer id, @PathParam("courseId") Integer courseId) {
 		try {
@@ -132,10 +112,6 @@ public class StudentsRestController {
 	}
 
 	@Operation(summary = "Unsubscribe from a course", description = "Disenroll a student from a course")
-	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "Successful operation", content = {
-					@Content(mediaType = "application/json", schema = @Schema(implementation = StudentOutDTO.class)) }),
-			@ApiResponse(responseCode = "405", description = "Invalid input") })
 	@PostMapping(value = "/student/{id}/disenroll")
 	public StudentOutDTO disenrollStudent(@PathVariable("id") Integer id, @PathParam("courseId") Integer courseId) {
 		try {

@@ -45,8 +45,6 @@ public class TeachersRestController {
 	private CourseMapper courseMapper;
 
 	@Operation(summary = "Get all teachers", description = "Get all teachers")
-	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Successful operation", content = {
-			@Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = TeacherOutDTO.class))) }) })
 	@GetMapping(value = "/teacher")
 	public List<TeacherOutDTO> getAllTeachers() {
 		List<Teacher> teachers = teacherService.getAllTeachers();
@@ -55,10 +53,6 @@ public class TeachersRestController {
 	}
 
 	@Operation(summary = "Add a new teacher", description = "Add a new teacher")
-	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "Successful operation", content = {
-					@Content(mediaType = "application/json", schema = @Schema(implementation = TeacherOutDTO.class)) }),
-			@ApiResponse(responseCode = "405", description = "Invalid input") })
 	@PostMapping(value = "/teacher")
 	public TeacherOutDTO createTeacher(@Valid @RequestBody TeacherInDTO entity) {
 
@@ -69,10 +63,6 @@ public class TeachersRestController {
 	}
 
 	@Operation(summary = "Update a teacher", description = "Update a teacher")
-	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "Successful operation", content = {
-					@Content(mediaType = "application/json", schema = @Schema(implementation = TeacherOutDTO.class)) }),
-			@ApiResponse(responseCode = "405", description = "Invalid input") })
 	@PutMapping(value = "/teacher/{id}")
 	public TeacherOutDTO updateTeacher(@PathVariable("id") Integer id, @Valid @RequestBody TeacherInDTO entity) {
 		try {
@@ -90,10 +80,6 @@ public class TeachersRestController {
 	}
 
 	@Operation(summary = "Delete a teacher", description = "Delete a teacher")
-	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "Successful operation", content = {
-					@Content(mediaType = "application/json", schema = @Schema(implementation = String.class)) }),
-			@ApiResponse(responseCode = "405", description = "Invalid input") })
 	@DeleteMapping(value = "/teacher/{id}")
 	public String deleteTeacher(@PathVariable("id") Integer id) {
 		try {
@@ -107,8 +93,6 @@ public class TeachersRestController {
 	}
 	
 	@Operation(summary = "Get a teacher", description = "Get a teacher")
-	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Successful operation", content = {
-			@Content(mediaType = "application/json", schema = @Schema(implementation = StudentOutDTO.class)) }) })
 	@GetMapping(value = "/teacher/{id}")
 	public TeacherOutDTO getTeacher(@PathVariable("id") Integer id) {
 		try {

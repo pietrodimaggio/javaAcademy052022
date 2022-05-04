@@ -48,16 +48,12 @@ public class CoursesRestController {
 	private CourseMapper courseMapper;
 
 	@Operation(summary = "Get all course categories", description = "Get all course categories")
-	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Successful operation", content = {
-			@Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = String.class))) }) })
 	@GetMapping(value = "/courseCategory")
 	public List<String> getAllCourseCategories() {
 		return coursesService.getAllCourseCategories();
 	}
 
 	@Operation(summary = "Get courses by category", description = "Get courses by category")
-	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Successful operation", content = {
-			@Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = CourseOutDTO.class))) }) })
 	@GetMapping(value = "/courseByCategory")
 	public List<CourseOutDTO> getCoursesByCategory(@RequestParam("category") String courseCategory) {
 		List<Course> courses = coursesService.getCoursesByCategory(courseCategory);
@@ -66,8 +62,6 @@ public class CoursesRestController {
 	}
 
 	@Operation(summary = "Get all courses", description = "Get all courses")
-	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Successful operation", content = {
-			@Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = CourseOutDTO.class))) }) })
 	@GetMapping(value = "/course")
 	public List<CourseOutDTO> getAllCourses() {
 		List<Course> courses = coursesService.getAllCourses();
@@ -76,8 +70,6 @@ public class CoursesRestController {
 	}
 
 	@Operation(summary = "Get courses summary", description = "Get all courses with counters")
-	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Successful operation", content = {
-			@Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = CourseDataResult.class))) }) })
 	@GetMapping(value = "/courseSummary")
 	public List<CourseDataResult> getAllCourseSummary() {
 		List<CourseSummary> courses = coursesService.getCourseSummary();
@@ -86,9 +78,6 @@ public class CoursesRestController {
 	}
 
 	@Operation(summary = "Add a new course", description = "Add a new course")
-	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Successful operation", content = {
-			@Content(mediaType = "application/json", schema = @Schema(implementation = CourseOutDTO.class)) }),
-			@ApiResponse(responseCode = "404", description = "Teacher not found") })
 	@PostMapping(value = "/course")
 	public CourseOutDTO createCourse(@Valid @RequestBody CourseInDTO entity) {
 
@@ -109,8 +98,6 @@ public class CoursesRestController {
 	}
 
 	@Operation(summary = "Get a course", description = "Get a course")
-	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Successful operation", content = {
-			@Content(mediaType = "application/json", schema = @Schema(implementation = CourseOutDTO.class))) }) 
 	@GetMapping(value = "/course/{id}")
 	public CourseOutDTO getCourse(@PathVariable("id") Integer id) {
 		try {
@@ -124,9 +111,6 @@ public class CoursesRestController {
 	}
 
 	@Operation(summary = "Update a course", description = "Update a course")
-	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Successful operation", content = {
-			@Content(mediaType = "application/json", schema = @Schema(implementation = CourseOutDTO.class)) }),
-			@ApiResponse(responseCode = "404", description = "Teacher not found") })
 	@PutMapping(value = "/course/{id}")
 	public CourseOutDTO updateCourse(@PathVariable("id") Integer id, @Valid @RequestBody CourseInDTO entity) {
 		try {
@@ -145,10 +129,6 @@ public class CoursesRestController {
 	}
 
 	@Operation(summary = "Delete a course", description = "Delete a course")
-	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "Successful operation", content = {
-					@Content(mediaType = "application/json", schema = @Schema(implementation = String.class)) }),
-			@ApiResponse(responseCode = "404", description = "Teacher not found") })
 	@DeleteMapping(value = "/course/{id}")
 	public String deleteCourse(@PathVariable("id") Integer id) {
 		try {
