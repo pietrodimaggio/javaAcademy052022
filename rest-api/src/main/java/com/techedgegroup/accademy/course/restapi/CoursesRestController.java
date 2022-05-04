@@ -1,13 +1,12 @@
 package com.techedgegroup.accademy.course.restapi;
 
-import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,9 +18,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.techedgegroup.accademy.course.datamodel.Course;
+import com.techedgegroup.accademy.course.mapper.CourseMapper;
 import com.techedgegroup.accademy.course.restapi.model.CourseDataResult;
 import com.techedgegroup.accademy.course.restapi.model.CourseInDTO;
 import com.techedgegroup.accademy.course.restapi.model.CourseOutDTO;
+import com.techedgegroup.accademy.course.service.CourseService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -31,22 +33,32 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 public class CoursesRestController {
 	Logger logger = LoggerFactory.getLogger(CoursesRestController.class);
 
+	@Autowired
+	private CourseService coursesService;
+
+	@Autowired
+	private CourseMapper courseMapper;
+
 	@Operation(summary = "Get all course categories", description = "Get all course categories")
 	@GetMapping(value = "/courseCategory")
 	public List<String> getAllCourseCategories() {
-		return Collections.emptyList();
+		return coursesService.getAllCourseCategories();
 	}
 
 	@Operation(summary = "Get courses by category", description = "Get courses by category")
 	@GetMapping(value = "/courseByCategory")
 	public List<CourseOutDTO> getCoursesByCategory(@RequestParam("category") String courseCategory) {
-		throw new ResponseStatusException(HttpStatus.NOT_IMPLEMENTED);
+		List<Course> courses = coursesService.getCoursesByCategory(courseCategory);
+
+		return courseMapper.serviceToRest(courses);
 	}
 
 	@Operation(summary = "Get all courses", description = "Get all courses")
 	@GetMapping(value = "/course")
 	public List<CourseOutDTO> getAllCourses() {
-		throw new ResponseStatusException(HttpStatus.NOT_IMPLEMENTED);
+		List<Course> courses = coursesService.getAllCourses();
+
+		return courseMapper.serviceToRest(courses);
 	}
 
 	@Operation(summary = "Get courses summary", description = "Get all courses with counters")
@@ -58,31 +70,64 @@ public class CoursesRestController {
 	@Operation(summary = "Add a new course", description = "Add a new course")
 	@PostMapping(value = "/course")
 	public CourseOutDTO createCourse(@Valid @RequestBody CourseInDTO entity) {
-		throw new ResponseStatusException(HttpStatus.NOT_IMPLEMENTED);
+
+		try {
+			logger.info("");
+			Course newCourse = coursesService.createNewCourse(//
+					entity.getTeacherId(), //
+					entity.getCourseName(), //
+					entity.getCourseCategory(), //
+					entity.getCourseDate() //
+			);
+
+			return courseMapper.serviceToRest(newCourse);
+		} catch (Exception e) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+		}
+
 	}
 
 	@Operation(summary = "Get a course", description = "Get a course")
 	@GetMapping(value = "/course/{id}")
 	public CourseOutDTO getCourse(@PathVariable("id") Integer id) {
-		CourseOutDTO item = new CourseOutDTO();
+		try {
+			Course course = coursesService.getCourse(id);
 
-		item.setCourseName("Spring Boot");
-		item.setCourseCategory("Java");
-		item.setCourseDate(new Date());
+			return courseMapper.serviceToRest(course);
 
-		return item;
+		} catch (Exception e) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+		}
 	}
 
 	@Operation(summary = "Update a course", description = "Update a course")
 	@PutMapping(value = "/course/{id}")
 	public CourseOutDTO updateCourse(@PathVariable("id") Integer id, @Valid @RequestBody CourseInDTO entity) {
-		throw new ResponseStatusException(HttpStatus.NOT_IMPLEMENTED);
+		try {
+			Course updatedCourse = coursesService.updateCourse(//
+					id, //
+					entity.getTeacherId(), //
+					entity.getCourseName(), //
+					entity.getCourseCategory(), //
+					entity.getCourseDate() //
+			);
+
+			return courseMapper.serviceToRest(updatedCourse);
+		} catch (Exception e) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+		}
 	}
 
 	@Operation(summary = "Delete a course", description = "Delete a course")
 	@DeleteMapping(value = "/course/{id}")
 	public String deleteCourse(@PathVariable("id") Integer id) {
-		throw new ResponseStatusException(HttpStatus.NOT_IMPLEMENTED);
+		try {
+			coursesService.deleteCourse(id);
+
+			return "OK";
+		} catch (Exception e) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+		}
 	}
 
 }

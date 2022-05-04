@@ -58,19 +58,44 @@ public class TeachersRestController {
 	@Operation(summary = "Update a teacher", description = "Update a teacher")
 	@PutMapping(value = "/teacher/{id}")
 	public TeacherOutDTO updateTeacher(@PathVariable("id") Integer id, @Valid @RequestBody TeacherInDTO entity) {
-		throw new ResponseStatusException(HttpStatus.NOT_IMPLEMENTED);
+		try {
+			Teacher updatedTeacher = teacherService.updateTeacher(//
+					id, //
+					entity.getTeacherName(), //
+					entity.getTeacherSurname(), //
+					entity.getTeacherEmail() //
+			);
+
+			return courseMapper.serviceToRest(updatedTeacher);
+		} catch (Exception e) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+	}
 	}
 
 	@Operation(summary = "Delete a teacher", description = "Delete a teacher")
 	@DeleteMapping(value = "/teacher/{id}")
 	public String deleteTeacher(@PathVariable("id") Integer id) {
-		throw new ResponseStatusException(HttpStatus.NOT_IMPLEMENTED);
+		try {
+			teacherService.deleteTeacher(id);
+
+			return "OK";
+		} catch (Exception e) {
+			logger.error("Errore",e);
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+		}
 	}
 
 	@Operation(summary = "Get a teacher", description = "Get a teacher")
 	@GetMapping(value = "/teacher/{id}")
-	public TeacherOutDTO getStudent(@PathVariable("id") Integer id) {
-		throw new ResponseStatusException(HttpStatus.NOT_IMPLEMENTED);
+	public TeacherOutDTO getTeacher(@PathVariable("id") Integer id) {
+		try {
+			Teacher student = teacherService.getTeacher(id);
+
+			return courseMapper.serviceToRest(student);
+		
+		} catch (Exception e) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+		}
 	}
 
 }
