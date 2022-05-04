@@ -75,10 +75,10 @@ public class ExcelDataParser {
         teacher.setTeacherName(name);
 
         String surname = getCellValue(header.getCell(1), dataFormatter, formulaEvaluator);
-        teacher.setTeacherName(surname);
+        teacher.setTeacherSurname(surname);
 
         String email = getCellValue(header.getCell(2), dataFormatter, formulaEvaluator);
-        teacher.setTeacherName(email);
+        teacher.setTeacherEmail(email);
 
         result.setTeacher(teacher);
 
