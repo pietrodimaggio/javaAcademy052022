@@ -25,7 +25,7 @@ public class CourseService {
 
 	@Transactional(readOnly = true)
 	public List<Course> getAllCourses() {
-		return courseRepository.findAll();
+		return courseRepository.findAllCourses();
 	}
 
 	@Transactional(readOnly = true)
@@ -96,12 +96,14 @@ public class CourseService {
 			throw new Exception("Course not found");
 		}
 
-		Course course = courseQuery.get();
-		course.getStudents().stream().forEach(student -> { //
-			course.getStudents().remove(student);
-			student.getCourses().remove(course);
-		});
+//		Course course = courseQuery.get();
+//		course.getStudents().stream().forEach(student -> { //
+//			course.getStudents().remove(student);
+//			student.getCourses().remove(course);
+//		});
 
+		courseRepository.deleteCourseStudents(id);
+		
 		courseRepository.deleteById(id);
 	}
 

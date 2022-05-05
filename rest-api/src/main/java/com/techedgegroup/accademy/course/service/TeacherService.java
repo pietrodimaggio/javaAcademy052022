@@ -9,12 +9,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.techedgegroup.accademy.course.datamodel.Teacher;
+import com.techedgegroup.accademy.course.repository.CourseRepository;
 import com.techedgegroup.accademy.course.repository.TeacherRepository;
 
 @Service
 public class TeacherService {
 	@Autowired
 	private TeacherRepository teacherRepository;
+
+	@Autowired
+	private CourseRepository courseRepository;
 
 	public List<Teacher> getAllTeachers() {
 		return teacherRepository.findAll();
@@ -44,7 +48,6 @@ public class TeacherService {
 		teacher.setTeacherName(teacherName);
 		teacher.setTeacherSurname(teacherSurname);
 		teacher.setTeacherEmail(teacherEmail);
-        
 
 		return teacher;
 	}
@@ -56,14 +59,13 @@ public class TeacherService {
 			throw new Exception("Teacher not found");
 		}
 
-        Teacher teacher = teacherQuery.get();
+		Teacher teacher = teacherQuery.get();
 
-        teacher.getCourses().stream().forEach(course -> { //
-            course.getStudents().stream().forEach(student -> { //
-                course.getStudents().remove(student);
-                student.getCourses().remove(course);
-            });
-        });
+		teacher.getCourses().stream().forEach(course -> { //
+			courseRepository.deleteCourseStudents(course.getId());
+		});
+
+//		teacherRepository.deleteStudentCourses(id);
 
 		teacherRepository.deleteById(id);
 	}
