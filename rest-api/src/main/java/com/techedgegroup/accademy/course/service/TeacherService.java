@@ -22,6 +22,7 @@ public class TeacherService {
 
 	public List<Teacher> getAllTeachers() {
 		return teacherRepository.findAll();
+//		return teacherRepository.findAllTeachers();
 	}
 
 	@Transactional

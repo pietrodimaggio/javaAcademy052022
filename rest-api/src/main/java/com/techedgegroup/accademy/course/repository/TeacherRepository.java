@@ -1,14 +1,19 @@
 package com.techedgegroup.accademy.course.repository;
 
+import java.util.List;
+
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 import com.techedgegroup.accademy.course.datamodel.Teacher;
 
 public interface TeacherRepository extends JpaRepository<Teacher, Integer> {
 
+	@Override
+	@EntityGraph(attributePaths = "courses")
+	List<Teacher> findAll();
+	
 //	@Modifying(clearAutomatically = true)
 //	@Query(nativeQuery = true, value = "DELETE " //
 //			+ "FROM " //
@@ -22,4 +27,6 @@ public interface TeacherRepository extends JpaRepository<Teacher, Integer> {
 //	)
 //	long deleteStudentCourses(@Param("id") Integer teacherId);
 
+	@Query("select t from Teacher t join fetch t.courses")
+	List<Teacher> findAllTeachers();
 }
