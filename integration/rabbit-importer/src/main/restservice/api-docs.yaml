@@ -16,7 +16,7 @@ paths:
       - Teacher API
       summary: Get a teacher
       description: Get a teacher
-      operationId: getStudent
+      operationId: getTeacher
       parameters:
       - name: id
         in: path
@@ -25,14 +25,12 @@ paths:
           type: integer
           format: int32
       responses:
-        "200":
-          description: Successful operation
+        '200':
+          description: OK
           content:
-            application/json:
+            '*/*':
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/StudentOutDTO'
+                $ref: '#/components/schemas/TeacherOutDTO'
     put:
       tags:
       - Teacher API
@@ -53,16 +51,10 @@ paths:
               $ref: '#/components/schemas/TeacherInDTO'
         required: true
       responses:
-        "405":
-          description: Invalid input
+        '200':
+          description: OK
           content:
             '*/*':
-              schema:
-                $ref: '#/components/schemas/TeacherOutDTO'
-        "200":
-          description: Successful operation
-          content:
-            application/json:
               schema:
                 $ref: '#/components/schemas/TeacherOutDTO'
     delete:
@@ -79,16 +71,10 @@ paths:
           type: integer
           format: int32
       responses:
-        "405":
-          description: Invalid input
+        '200':
+          description: OK
           content:
             '*/*':
-              schema:
-                type: string
-        "200":
-          description: Successful operation
-          content:
-            application/json:
               schema:
                 type: string
   /student/{id}:
@@ -97,7 +83,7 @@ paths:
       - Student API
       summary: Get a student
       description: Get all students
-      operationId: getStudent_1
+      operationId: getStudent
       parameters:
       - name: id
         in: path
@@ -106,14 +92,12 @@ paths:
           type: integer
           format: int32
       responses:
-        "200":
-          description: Successful operation
+        '200':
+          description: OK
           content:
-            application/json:
+            '*/*':
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/StudentOutDTO'
+                $ref: '#/components/schemas/StudentOutDTO'
     put:
       tags:
       - Student API
@@ -134,16 +118,10 @@ paths:
               $ref: '#/components/schemas/StudentInDTO'
         required: true
       responses:
-        "405":
-          description: Invalid input
+        '200':
+          description: OK
           content:
             '*/*':
-              schema:
-                $ref: '#/components/schemas/StudentOutDTO'
-        "200":
-          description: Successful operation
-          content:
-            application/json:
               schema:
                 $ref: '#/components/schemas/StudentOutDTO'
     delete:
@@ -160,16 +138,10 @@ paths:
           type: integer
           format: int32
       responses:
-        "405":
-          description: Invalid input
+        '200':
+          description: OK
           content:
             '*/*':
-              schema:
-                type: string
-        "200":
-          description: Successful operation
-          content:
-            application/json:
               schema:
                 type: string
   /course/{id}:
@@ -187,14 +159,12 @@ paths:
           type: integer
           format: int32
       responses:
-        "200":
-          description: Successful operation
+        '200':
+          description: OK
           content:
-            application/json:
+            '*/*':
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/StudentOutDTO'
+                $ref: '#/components/schemas/CourseOutDTO'
     put:
       tags:
       - Courses API
@@ -215,16 +185,10 @@ paths:
               $ref: '#/components/schemas/CourseInDTO'
         required: true
       responses:
-        "404":
-          description: Teacher not found
+        '200':
+          description: OK
           content:
             '*/*':
-              schema:
-                $ref: '#/components/schemas/CourseOutDTO'
-        "200":
-          description: Successful operation
-          content:
-            application/json:
               schema:
                 $ref: '#/components/schemas/CourseOutDTO'
     delete:
@@ -241,16 +205,10 @@ paths:
           type: integer
           format: int32
       responses:
-        "404":
-          description: Teacher not found
+        '200':
+          description: OK
           content:
             '*/*':
-              schema:
-                type: string
-        "200":
-          description: Successful operation
-          content:
-            application/json:
               schema:
                 type: string
   /teacher:
@@ -261,10 +219,10 @@ paths:
       description: Get all teachers
       operationId: getAllTeachers
       responses:
-        "200":
-          description: Successful operation
+        '200':
+          description: OK
           content:
-            application/json:
+            '*/*':
               schema:
                 type: array
                 items:
@@ -282,16 +240,10 @@ paths:
               $ref: '#/components/schemas/TeacherInDTO'
         required: true
       responses:
-        "405":
-          description: Invalid input
+        '200':
+          description: OK
           content:
             '*/*':
-              schema:
-                $ref: '#/components/schemas/TeacherOutDTO'
-        "200":
-          description: Successful operation
-          content:
-            application/json:
               schema:
                 $ref: '#/components/schemas/TeacherOutDTO'
   /student:
@@ -302,10 +254,10 @@ paths:
       description: Get all students
       operationId: getAllStudents
       responses:
-        "200":
-          description: Successful operation
+        '200':
+          description: OK
           content:
-            application/json:
+            '*/*':
               schema:
                 type: array
                 items:
@@ -323,16 +275,10 @@ paths:
               $ref: '#/components/schemas/StudentInDTO'
         required: true
       responses:
-        "405":
-          description: Invalid input
+        '200':
+          description: OK
           content:
             '*/*':
-              schema:
-                $ref: '#/components/schemas/StudentOutDTO'
-        "200":
-          description: Successful operation
-          content:
-            application/json:
               schema:
                 $ref: '#/components/schemas/StudentOutDTO'
   /student/{id}/enroll:
@@ -356,16 +302,10 @@ paths:
           type: integer
           format: int32
       responses:
-        "405":
-          description: Invalid input
+        '200':
+          description: OK
           content:
             '*/*':
-              schema:
-                $ref: '#/components/schemas/StudentOutDTO'
-        "200":
-          description: Successful operation
-          content:
-            application/json:
               schema:
                 $ref: '#/components/schemas/StudentOutDTO'
   /student/{id}/disenroll:
@@ -389,16 +329,10 @@ paths:
           type: integer
           format: int32
       responses:
-        "405":
-          description: Invalid input
+        '200':
+          description: OK
           content:
             '*/*':
-              schema:
-                $ref: '#/components/schemas/StudentOutDTO'
-        "200":
-          description: Successful operation
-          content:
-            application/json:
               schema:
                 $ref: '#/components/schemas/StudentOutDTO'
   /course:
@@ -409,10 +343,10 @@ paths:
       description: Get all courses
       operationId: getAllCourses
       responses:
-        "200":
-          description: Successful operation
+        '200':
+          description: OK
           content:
-            application/json:
+            '*/*':
               schema:
                 type: array
                 items:
@@ -430,16 +364,10 @@ paths:
               $ref: '#/components/schemas/CourseInDTO'
         required: true
       responses:
-        "404":
-          description: Teacher not found
+        '200':
+          description: OK
           content:
             '*/*':
-              schema:
-                $ref: '#/components/schemas/CourseOutDTO'
-        "200":
-          description: Successful operation
-          content:
-            application/json:
               schema:
                 $ref: '#/components/schemas/CourseOutDTO'
   /courseSummary:
@@ -450,10 +378,10 @@ paths:
       description: Get all courses with counters
       operationId: getAllCourseSummary
       responses:
-        "200":
-          description: Successful operation
+        '200':
+          description: OK
           content:
-            application/json:
+            '*/*':
               schema:
                 type: array
                 items:
@@ -466,10 +394,10 @@ paths:
       description: Get all course categories
       operationId: getAllCourseCategories
       responses:
-        "200":
-          description: Successful operation
+        '200':
+          description: OK
           content:
-            application/json:
+            '*/*':
               schema:
                 type: array
                 items:
@@ -488,10 +416,10 @@ paths:
         schema:
           type: string
       responses:
-        "200":
-          description: Successful operation
+        '200':
+          description: OK
           content:
-            application/json:
+            '*/*':
               schema:
                 type: array
                 items:
@@ -581,7 +509,8 @@ components:
           type: string
         courseDate:
           type: string
-          format: date-time
+          format: date-time                    
+          x-extra-annotation: "@com.fasterxml.jackson.annotation.JsonFormat(pattern = \"dd/MM/yyyy\")"
     CourseOutDTO:
       type: object
       properties:
@@ -595,6 +524,7 @@ components:
         courseDate:
           type: string
           format: date-time
+          x-extra-annotation: "@com.fasterxml.jackson.annotation.JsonFormat(pattern = \"dd/MM/yyyy\")"          
         teacherId:
           type: integer
           format: int32
