@@ -23,7 +23,7 @@ public class StudentService {
 
     @Transactional(readOnly = true)
     public List<Student> getAllStudents() {
-        return studentRepository.findAllStudents();
+        return studentRepository.findAll();
     }
 
     @Transactional
@@ -79,14 +79,14 @@ public class StudentService {
             throw new Exception("Student not found");
         }
 
-        Student student = studentQuery.get();
+//        Student student = studentQuery.get();
+//
+//        student.getCourses().stream().forEach(course -> { //
+//            course.getStudents().remove(student);
+//            student.getCourses().remove(course);
+//        });
 
-        student.getCourses().stream().forEach(course -> { //
-            course.getStudents().remove(student);
-            student.getCourses().remove(course);
-        });
-
-        // studentRepository.deleteStudentCourses(id);
+        studentRepository.deleteStudentCourses(id);
 
         studentRepository.deleteById(id);
     }

@@ -14,6 +14,8 @@ import com.techedgegroup.accademy.course.datamodel.Teacher;
 import com.techedgegroup.accademy.course.repository.CourseRepository;
 import com.techedgegroup.accademy.course.repository.TeacherRepository;
 
+import io.micrometer.core.annotation.Timed;
+
 @Service
 public class CourseService {
 
@@ -24,6 +26,7 @@ public class CourseService {
 	private TeacherRepository teacherRepository;
 
 	@Transactional(readOnly = true)
+	@Timed(value = "course.getAllCourses", description = "Time taken to return all courses")
 	public List<Course> getAllCourses() {
 		return courseRepository.findAll();
 	}
@@ -96,11 +99,7 @@ public class CourseService {
 			throw new Exception("Course not found");
 		}
 
-		Course course = courseQuery.get();
-		course.getStudents().stream().forEach(student -> { //
-			course.getStudents().remove(student);
-			student.getCourses().remove(course);
-		});
+		courseRepository.deleteCourseStudents(id);
 
 		courseRepository.deleteById(id);
 	}

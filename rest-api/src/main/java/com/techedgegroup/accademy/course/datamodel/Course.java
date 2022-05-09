@@ -14,10 +14,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "COURSES")
-@Data
+@Getter
+@Setter
+@ToString
 public class Course {
 	@Id
 	@Column(unique = true, nullable = false)

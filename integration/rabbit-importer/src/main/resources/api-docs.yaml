@@ -1,0 +1,550 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+- url: http://localhost:8080
+  description: Generated server url
+tags:
+- name: Teacher API
+- name: Student API
+- name: Courses API
+paths:
+  /teacher/{id}:
+    get:
+      tags:
+      - Teacher API
+      summary: Get a teacher
+      description: Get a teacher
+      operationId: getTeacher
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TeacherOutDTO'
+    put:
+      tags:
+      - Teacher API
+      summary: Update a teacher
+      description: Update a teacher
+      operationId: updateTeacher
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeacherInDTO'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TeacherOutDTO'
+    delete:
+      tags:
+      - Teacher API
+      summary: Delete a teacher
+      description: Delete a teacher
+      operationId: deleteTeacher
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /student/{id}:
+    get:
+      tags:
+      - Student API
+      summary: Get a student
+      description: Get all students
+      operationId: getStudent
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/StudentOutDTO'
+    put:
+      tags:
+      - Student API
+      summary: Update a student
+      description: Update a student
+      operationId: updateTeacher_1
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StudentInDTO'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/StudentOutDTO'
+    delete:
+      tags:
+      - Student API
+      summary: Delete a student
+      description: Delete a student
+      operationId: deleteStudent
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /course/{id}:
+    get:
+      tags:
+      - Courses API
+      summary: Get a course
+      description: Get a course
+      operationId: getCourse
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CourseOutDTO'
+    put:
+      tags:
+      - Courses API
+      summary: Update a course
+      description: Update a course
+      operationId: updateCourse
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CourseInDTO'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CourseOutDTO'
+    delete:
+      tags:
+      - Courses API
+      summary: Delete a course
+      description: Delete a course
+      operationId: deleteCourse
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /teacher:
+    get:
+      tags:
+      - Teacher API
+      summary: Get all teachers
+      description: Get all teachers
+      operationId: getAllTeachers
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TeacherOutDTO'
+    post:
+      tags:
+      - Teacher API
+      summary: Add a new teacher
+      description: Add a new teacher
+      operationId: createTeacher
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeacherInDTO'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TeacherOutDTO'
+  /student:
+    get:
+      tags:
+      - Student API
+      summary: Get all students
+      description: Get all students
+      operationId: getAllStudents
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StudentOutDTO'
+    post:
+      tags:
+      - Student API
+      summary: Add a new student
+      description: Add a new student
+      operationId: createStudent
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StudentInDTO'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/StudentOutDTO'
+  /student/{id}/enroll:
+    post:
+      tags:
+      - Student API
+      summary: Enrollment in a course
+      description: Enroll a student on a course
+      operationId: enrollStudent
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: courseId
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/StudentOutDTO'
+  /student/{id}/disenroll:
+    post:
+      tags:
+      - Student API
+      summary: Unsubscribe from a course
+      description: Disenroll a student from a course
+      operationId: disenrollStudent
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: courseId
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/StudentOutDTO'
+  /course:
+    get:
+      tags:
+      - Courses API
+      summary: Get all courses
+      description: Get all courses
+      operationId: getAllCourses
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CourseOutDTO'
+    post:
+      tags:
+      - Courses API
+      summary: Add a new course
+      description: Add a new course
+      operationId: createCourse
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CourseInDTO'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CourseOutDTO'
+  /courseSummary:
+    get:
+      tags:
+      - Courses API
+      summary: Get courses summary
+      description: Get all courses with counters
+      operationId: getAllCourseSummary
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CourseDataResult'
+  /courseCategory:
+    get:
+      tags:
+      - Courses API
+      summary: Get all course categories
+      description: Get all course categories
+      operationId: getAllCourseCategories
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  type: string
+  /courseByCategory:
+    get:
+      tags:
+      - Courses API
+      summary: Get courses by category
+      description: Get courses by category
+      operationId: getCoursesByCategory
+      parameters:
+      - name: category
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CourseOutDTO'
+components:
+  schemas:
+    TeacherInDTO:
+      required:
+      - teacherEmail
+      - teacherName
+      - teacherSurname
+      type: object
+      properties:
+        teacherName:
+          type: string
+        teacherSurname:
+          type: string
+        teacherEmail:
+          type: string
+    CourseSummary:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        courseName:
+          type: string
+    TeacherOutDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        teacherName:
+          type: string
+        teacherSurname:
+          type: string
+        teacherEmail:
+          type: string
+        courses:
+          type: array
+          items:
+            $ref: '#/components/schemas/CourseSummary'
+    StudentInDTO:
+      required:
+      - studentEmail
+      - studentName
+      - studentSurname
+      type: object
+      properties:
+        studentName:
+          type: string
+        studentSurname:
+          type: string
+        studentEmail:
+          type: string
+    StudentOutDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        studentName:
+          type: string
+        studentSurname:
+          type: string
+        studentEmail:
+          type: string
+        courses:
+          type: array
+          items:
+            $ref: '#/components/schemas/CourseSummary'
+    CourseInDTO:
+      required:
+      - courseCategory
+      - courseDate
+      - courseName
+      - teacherId
+      type: object
+      properties:
+        teacherId:
+          type: integer
+          format: int32
+        courseName:
+          type: string
+        courseCategory:
+          type: string
+        courseDate:
+          type: string
+          format: date-time
+          x-extra-annotation: "@com.fasterxml.jackson.annotation.JsonFormat(pattern = \"dd/MM/yyyy\")"
+    CourseOutDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        courseName:
+          type: string
+        courseCategory:
+          type: string
+        courseDate:
+          type: string
+          format: date-time
+          x-extra-annotation: "@com.fasterxml.jackson.annotation.JsonFormat(pattern = \"dd/MM/yyyy\")"          
+        teacherId:
+          type: integer
+          format: int32
+        teacherEmail:
+          type: string
+    CourseDataResult:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        courseName:
+          type: string
+        courseCategory:
+          type: string
+        courseDate:
+          type: string
+          format: date-time
+        teacher:
+          type: string
+        students:
+          type: integer
+          format: int32

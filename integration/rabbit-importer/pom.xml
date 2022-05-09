@@ -68,6 +68,11 @@
 			<artifactId>spotbugs-annotations</artifactId>
 			<version>4.2.0</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		
 	</dependencies>
 
 	<build>
@@ -120,7 +125,7 @@
 							<goal>generate</goal>
 						</goals>
 						<configuration>
-							<inputSpec>${project.basedir}/src/main/restservice/api-docs.yaml</inputSpec>
+							<inputSpec>${project.basedir}/src/main/resources/api-docs.yaml</inputSpec>
 							<generatorName>java</generatorName>
 							<modelNameSuffix>Dto</modelNameSuffix>
 							<generateApiTests>false</generateApiTests>

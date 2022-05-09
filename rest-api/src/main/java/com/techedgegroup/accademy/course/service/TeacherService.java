@@ -56,14 +56,16 @@ public class TeacherService {
 			throw new Exception("Teacher not found");
 		}
 
-        Teacher teacher = teacherQuery.get();
+//        Teacher teacher = teacherQuery.get();
+//
+//        teacher.getCourses().stream().forEach(course -> { //
+//            course.getStudents().stream().forEach(student -> { //
+//                course.getStudents().remove(student);
+//                student.getCourses().remove(course);
+//            });
+//        });
 
-        teacher.getCourses().stream().forEach(course -> { //
-            course.getStudents().stream().forEach(student -> { //
-                course.getStudents().remove(student);
-                student.getCourses().remove(course);
-            });
-        });
+		teacherRepository.deleteAllCourses(id);
 
 		teacherRepository.deleteById(id);
 	}
